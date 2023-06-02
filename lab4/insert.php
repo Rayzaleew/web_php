@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $username = pg_escape_string($_POST['username']);
 
     if (!$last_name || !$room_id || !$computer_id || !$password || !$username) {
-        header("Location: /lab2/insert.php?error=1");
+        header("Location: /lab4/insert.php?error=1");
         exit();
     }
 
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     ");
     $inserted = pg_fetch_all($inserted_query)[0];
 
-    header("Location: /lab2/edit.php?success=true&id=" . $inserted['id'] . "");
+    header("Location: /lab4/edit.php?success=true&id=" . $inserted['id'] . "");
 }
 
 ?>
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 <head>
 
-    <title>Лабораторная 2</title>
+    <title>Лабораторная 4</title>
     <link href="/main.css?version=2" rel="stylesheet" />
 
 </head>
@@ -113,31 +113,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             В этом списке указаны только свободные компьютеры! Если их нет, приходите позже, когда у
             компании появятся средства на покупку новых компьютеров.
         </p>
-        <table class="mb-2">
-            <tr>
-                <th></th>
-                <th>Номер</th>
-                <th>Имя</th>
-                <th>ОЗУ</th>
-                <th>Количество ядер</th>
-            </tr>
+        <div>
+            <span>Выберите производителя</span>
 
-            <?php
-            foreach ($computers as $computer) {
-                echo "<tr>";
-                echo "<td><input type='radio' name='computer' value='" . $computer['id'] . "'></td>";
-                echo "<td>" . $computer['id'] . "</td>";
-                echo "<td>" . $computer['name'] . "</td>";
-                echo "<td>" . $computer['ram'] . "</td>";
-                echo "<td>" . $computer['cpu_cores'] . "</td>";
-                echo "</tr>";
-            }
-            ?>
-        </table>
+            <select id="brandSelect"></select>
+        </div>
+        <div id="modelsTable"></div>
 
         <input type="submit" value="Создать">
     </form>
 
+    <script src="/shared/check-filled.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="/shared/validate.js"></script>
+    <script src="/shared/fetch_computer_models.js"></script>
 </body>
 
 </html>

@@ -35,8 +35,11 @@ foreach ($staff as $s) {
         $s['department_id'] * 10
     );
     imagefilledrectangle($im, $x, $y, $x + $bar_width, 299, $bar_color);
-
-    imagestring($im, 5, $x + $bar_width / 2, $y - 15, $s['num_employees'], $text_color);
+    // $font_id = imageloadfont("arial.ttf");
+    putenv('GDFONTPATH=' . realpath('.'));
+    $font = "arial";
+    imagettftext($im, 14, 0, $x + $bar_width / 2 - 25, $y - 5, $text_color, $font , $s['num_employees'] . ' сотр.');
+    // imagestring($im, $font_id, $x + $bar_width / 2, $y - 15, $s['num_employees'] . 'людей', $text_color);
     $x += $bar_width + $bar_gap;
 }
 
