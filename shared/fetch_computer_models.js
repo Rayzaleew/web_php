@@ -2,7 +2,7 @@ $(document).ready(function() {
     
     loadBrands();
     var params = new URLSearchParams(window.location.search);
-    var id = null;
+    var id = "-1";
     if (params.has('id')) {
         id = params.get('id');
         console.log('Значение параметра id: ' + id);
